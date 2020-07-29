@@ -16,8 +16,10 @@ public class Library {
             String row;
             while ((row = bufferedReader.readLine()) != null) {
                 String[] book = row.split(",");
-                Book books = new Book(book[0], book[1], book[2]);
-                bookList.add(books);
+                Book books = new Book(book[0], book[1], book[2], StatusOfBook.INSTOCK);
+                if (books.status == StatusOfBook.INSTOCK) {
+                    bookList.add(books);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -34,21 +36,34 @@ public class Library {
     private String getString(List<Book> bookList) {
         StringBuilder bookListString = new StringBuilder();
         for (Book book : bookList) {
-            bookListString.append(book.name)
+            bookListString.append(book.title)
                     .append(" |")
                     .append(book.author)
                     .append(" |")
                     .append(book.year)
                     .append("\n");
         }
-        return bookListString.toString().replaceAll("\"", "");
+        return bookListString.toString();
     }
 
-    protected List<Book> checkOutBook(Book bookToCheckOut) {
-        return null;
+    protected String checkOutBook(String title) {
+        List<Book> bookList = getBookList();
+        if (bookList.stream().anyMatch(book -> book.title.equals(title))) {
+            for (Book book : bookList) {
+                if (book.title.equals(title)) {
+                    int i = bookList.indexOf(book);
+                    bookList.set(i,
+                            new Book(book.title, book.author, book.year, StatusOfBook.CHECKOUT));
+                }
+            }
+            return "Thank you! Enjoy the book";
+        } else {
+            return "Sorry, that book is not available";
+        }
     }
 
-    protected List<Book> returnBook(Book bookToReturn) {
+    protected String returnBook(Book bookToReturn) {
+        // TO DO
         return null;
     }
 }

@@ -28,4 +28,16 @@ public class BibliotecaAppTest {
                 + "Another Country | " + "James Baldwin | " + "2001" + "\n"
                 + "Mrs Dalloway | " + "Virginia Woolf | " + "2004" + "\n", bookListString);
     }
+
+    @Test
+    public void shouldSendMessageWhenCheckOut() {
+        Library library = new Library();
+        String title = "Pride and Prejudice";
+        String titleDoesNotExist = "Java Fundamentals";
+        String message = library.checkOutBook(title);
+        String messageWhenFailure = library.checkOutBook(titleDoesNotExist);
+
+        assertEquals("Thank you! Enjoy the book", message);
+        assertEquals("Sorry, that book is not available", messageWhenFailure);
+    }
 }

@@ -1,10 +1,13 @@
 package com.twu.Biblioteca;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Book {
-    public ArrayList<String> getAllBooks() {
-        return null;
+    protected String name;
+    protected String author;
+    protected String year;
+
+    public Book(String name, String author, String year) {
+        this.name = name;
+        this.author = author;
+        this.year = year;
     }
 }

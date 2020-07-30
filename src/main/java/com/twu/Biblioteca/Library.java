@@ -8,7 +8,7 @@ public class Library {
     public List<Book> books;
 
     //get the book list from current book database.
-    protected List<Book> getBookList() {
+    private List<Book> getBookList() {
         List<Book> bookList= new ArrayList<>();
 
         File booksCsv = new File(

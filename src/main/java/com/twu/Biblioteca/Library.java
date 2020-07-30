@@ -1,7 +1,5 @@
 package com.twu.Biblioteca;
 
-import com.opencsv.*;
-
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -20,7 +18,6 @@ public class Library {
             while ((row = bufferedReader.readLine()) != null) {
                 String[] book = row.split(",");
                 Book books = new Book(book[0], book[1], book[2], book[3]);
-                // filter instock and checkout
                 bookList.add(books);
 
             }
@@ -80,9 +77,22 @@ public class Library {
         writer.close();
     }
 
-    protected String returnBook(Book bookToReturn) {
-        // TO DO
-        return null;
+    protected String returnBook(String title) throws IOException {
+        List<Book> bookList = getBookList();
+        if (bookList.stream().anyMatch(book -> book.title.equals(title) && book.status.equals(" CHECKOUT"))) {
+            for (int i = 0; i < bookList.size(); i++) {
+                if (bookList.get(i).title.equals(title)) {
+                    String author = bookList.get(i).author;
+                    String year = bookList.get(i).year;
+
+                    bookList.set(i, new Book(title, author, year, "INSTOCK"));
+                    writeToFile(bookList);
+                }
+            }
+            return "Thank you for returning the book";
+        } else {
+            return "That is not a valid book to return";
+        }
     }
 }
 

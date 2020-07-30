@@ -36,7 +36,6 @@ public class BibliotecaAppTest {
         String title = "Pride and Prejudice";
         String titleDoesNotExist = "Java Fundamentals";
         String message = library.checkOutBook(title);
-        System.out.println(library.generateBookList());
         String messageWhenFailure = library.checkOutBook(titleDoesNotExist);
 
         assertEquals("Thank you! Enjoy the book", message);
@@ -45,7 +44,7 @@ public class BibliotecaAppTest {
 
     @Test
     /*
-    white space issue, diff from the first one.
+    white space issue, diff from the first one, the white space is always increasing.
      */
     public void shouldGenerateBooksInStockAfterCheckOut() throws IOException {
         Library library = new Library();

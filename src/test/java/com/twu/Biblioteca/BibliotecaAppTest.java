@@ -2,6 +2,7 @@ package com.twu.Biblioteca;
 
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,14 +31,31 @@ public class BibliotecaAppTest {
     }
 
     @Test
-    public void shouldSendMessageWhenCheckOut() {
+    public void shouldSendMessageWhenCheckOut() throws IOException {
         Library library = new Library();
         String title = "Pride and Prejudice";
         String titleDoesNotExist = "Java Fundamentals";
         String message = library.checkOutBook(title);
+        System.out.println(library.generateBookList());
         String messageWhenFailure = library.checkOutBook(titleDoesNotExist);
 
         assertEquals("Thank you! Enjoy the book", message);
         assertEquals("Sorry, that book is not available", messageWhenFailure);
+    }
+
+    @Test
+    /*
+    white space issue, diff from the first one.
+     */
+    public void shouldGenerateBooksInStockAfterCheckOut() throws IOException {
+        Library library = new Library();
+        String title = "Pride and Prejudice";
+        library.checkOutBook(title);
+        String bookListString = library.generateBookList();
+
+        assertEquals("Nineteen Eighty-Four | " + " George Orwell | " + " 2004" + "\n"
+                + "Crime and Punishment | " + " Fyodor Dostoevsky | " + " 2003" + "\n"
+                + "Another Country | " + " James Baldwin | " + " 2001" + "\n"
+                + "Mrs Dalloway | " + " Virginia Woolf | " + " 2004" + "\n", bookListString);
     }
 }

@@ -1,25 +1,28 @@
 package com.twu.Biblioteca;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import com.opencsv.*;
+
+import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Library {
+    public List<Book> books;
+
     //get the book list from current book database.
-    private List<Book> getBookList() {
+    protected List<Book> getBookList() {
         List<Book> bookList= new ArrayList<>();
+
         File booksCsv = new File(
                 Objects.requireNonNull(getClass().getClassLoader().getResource("books.csv")).getFile());
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(booksCsv))) {
             String row;
             while ((row = bufferedReader.readLine()) != null) {
                 String[] book = row.split(",");
-                Book books = new Book(book[0], book[1], book[2], StatusOfBook.INSTOCK);
-                if (books.status == StatusOfBook.INSTOCK) {
-                    bookList.add(books);
-                }
+                Book books = new Book(book[0], book[1], book[2], book[3]);
+                // filter instock and checkout
+                bookList.add(books);
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -29,8 +32,10 @@ public class Library {
 
     // generate the book list to display for the customer.
     protected String generateBookList() {
+        List<Book> bookListWithoutCheckOut;
         List<Book> bookList = getBookList();
-        return getString(bookList);
+        bookListWithoutCheckOut = bookList.stream().filter(book -> !book.status.equals(" CHECKOUT")).collect(Collectors.toList());
+        return getString(bookListWithoutCheckOut);
     }
 
     private String getString(List<Book> bookList) {
@@ -46,20 +51,33 @@ public class Library {
         return bookListString.toString();
     }
 
-    protected String checkOutBook(String title) {
+    protected String checkOutBook(String title) throws IOException {
         List<Book> bookList = getBookList();
         if (bookList.stream().anyMatch(book -> book.title.equals(title))) {
-            for (Book book : bookList) {
-                if (book.title.equals(title)) {
-                    int i = bookList.indexOf(book);
-                    bookList.set(i,
-                            new Book(book.title, book.author, book.year, StatusOfBook.CHECKOUT));
+            for (int i = 0; i < bookList.size(); i++) {
+                if (bookList.get(i).title.equals(title)) {
+                    String author = bookList.get(i).author;
+                    String year = bookList.get(i).year;
+
+                    bookList.set(i, new Book(title, author, year, "CHECKOUT"));
+                    writeToFile(bookList);
                 }
             }
             return "Thank you! Enjoy the book";
         } else {
             return "Sorry, that book is not available";
         }
+    }
+
+    private void writeToFile(List<Book> bookList) throws IOException {
+        File booksCsv = new File(
+                Objects.requireNonNull(getClass().getClassLoader().getResource("books.csv")).getFile());
+        BufferedWriter writer = new BufferedWriter(new FileWriter(booksCsv));
+        for (Book book : bookList) {
+            writer.write(book.toString());
+            writer.newLine();
+        }
+        writer.close();
     }
 
     protected String returnBook(Book bookToReturn) {

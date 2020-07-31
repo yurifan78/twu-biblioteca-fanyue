@@ -5,17 +5,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Library {
-    private final BookDataManager bookDataManager;
-
-    public Library() {
-        bookDataManager = new BookDataManager();
-    }
 
     protected String welcome() {
         return "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
     }
 
     protected String generateBookList() {
+        BookDataManager bookDataManager = new BookDataManager();
         List<Book> bookList = bookDataManager.getBookList();
         List<Book> bookInStock = bookList.stream().filter(book -> !book.status.equals("CHECKOUT")).collect(Collectors.toList());
         return getString(bookInStock);
@@ -35,6 +31,7 @@ public class Library {
     }
 
     protected String checkOutBook(String title) throws IOException {
+        BookDataManager bookDataManager = new BookDataManager();
         List<Book> bookList = bookDataManager.getBookList();
         if (bookList.stream().anyMatch(book -> book.title.equals(title))) {
             for (int i = 0; i < bookList.size(); i++) {
@@ -53,6 +50,7 @@ public class Library {
     }
 
     protected String returnBook(String title) throws IOException {
+        BookDataManager bookDataManager = new BookDataManager();
         List<Book> bookList = bookDataManager.getBookList();
         if (bookList.stream().anyMatch(book -> book.title.equals(title) && book.status.equals("CHECKOUT"))) {
             for (int i = 0; i < bookList.size(); i++) {

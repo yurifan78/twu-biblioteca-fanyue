@@ -6,10 +6,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class BookDataManager {
-    private final File booksCsv;
 
-    public BookDataManager() {
-        booksCsv = new File(Objects.requireNonNull(getClass()
+    private File getFile() {
+        return new File(Objects.requireNonNull(getClass()
                 .getClassLoader()
                 .getResource("books.csv"))
                 .getFile());
@@ -17,7 +16,7 @@ public class BookDataManager {
 
     protected List<Book> getBookList() {
         List<Book> bookList = new ArrayList<>();
-
+        File booksCsv = getFile();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(booksCsv))) {
             String row;
             while ((row = bufferedReader.readLine()) != null) {
@@ -36,6 +35,7 @@ public class BookDataManager {
     }
 
     protected void writeToFile(List<Book> bookList) throws IOException {
+        File booksCsv = getFile();
         BufferedWriter writer = new BufferedWriter(new FileWriter(booksCsv));
         for (Book book : bookList) {
             writer.write(book.toString());

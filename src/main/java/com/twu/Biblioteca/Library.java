@@ -16,10 +16,13 @@ public class Library {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(booksCsv))) {
             String row;
             while ((row = bufferedReader.readLine()) != null) {
-                String[] book = row.split(",");
-                Book books = new Book(book[0], book[1], book[2], book[3]);
-                bookList.add(books);
-
+                String[] books = row.split(", ");
+                String title = books[0];
+                String author  = books[1];
+                String year = books[2];
+                String status = books[3];
+                Book book = new Book(title, author, year, status);
+                bookList.add(book);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -29,19 +32,19 @@ public class Library {
 
     // generate the book list to display for the customer.
     protected String generateBookList() {
-        List<Book> bookListWithoutCheckOut;
+        List<Book> bookInStock;
         List<Book> bookList = getBookList();
-        bookListWithoutCheckOut = bookList.stream().filter(book -> !book.status.equals(" CHECKOUT")).collect(Collectors.toList());
-        return getString(bookListWithoutCheckOut);
+        bookInStock = bookList.stream().filter(book -> !book.status.equals("CHECKOUT")).collect(Collectors.toList());
+        return getString(bookInStock);
     }
 
     private String getString(List<Book> bookList) {
         StringBuilder bookListString = new StringBuilder();
         for (Book book : bookList) {
             bookListString.append(book.title)
-                    .append(" |")
+                    .append(" | ")
                     .append(book.author)
-                    .append(" |")
+                    .append(" | ")
                     .append(book.year)
                     .append("\n");
         }

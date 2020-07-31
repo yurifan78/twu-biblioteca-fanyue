@@ -23,11 +23,11 @@ public class BibliotecaAppTest {
         Library library = new Library();
         String bookListString = library.generateBookList();
 
-        assertEquals("Pride and Prejudice | " + "Jane Austen | " + "2012" + "\n"
-                + "Nineteen Eighty-Four | " + "George Orwell | " + "2004" + "\n"
-                + "Crime and Punishment | " + "Fyodor Dostoevsky | " + "2003" + "\n"
-                + "Another Country | " + "James Baldwin | " + "2001" + "\n"
-                + "Mrs Dalloway | " + "Virginia Woolf | " + "2004" + "\n", bookListString);
+        assertEquals("Pride and Prejudice | Jane Austen | 2012" + "\n"
+                + "Nineteen Eighty-Four | George Orwell | 2004" + "\n"
+                + "Crime and Punishment | Fyodor Dostoevsky | 2003" + "\n"
+                + "Another Country | James Baldwin | 2001" + "\n"
+                + "Mrs Dalloway | Virginia Woolf | 2004" + "\n", bookListString);
     }
 
     @Test
@@ -36,25 +36,36 @@ public class BibliotecaAppTest {
         String title = "Pride and Prejudice";
         String titleDoesNotExist = "Java Fundamentals";
         String message = library.checkOutBook(title);
-        String messageWhenFailure = library.checkOutBook(titleDoesNotExist);
+        String messageWhenCheckoutFail = library.checkOutBook(titleDoesNotExist);
 
         assertEquals("Thank you! Enjoy the book", message);
-        assertEquals("Sorry, that book is not available", messageWhenFailure);
+        assertEquals("Sorry, that book is not available", messageWhenCheckoutFail);
     }
 
     @Test
-    /*
-    white space issue, diff from the first one, the white space is always increasing.
-     */
     public void shouldGenerateBooksInStockAfterCheckOut() throws IOException {
         Library library = new Library();
         String title = "Pride and Prejudice";
         library.checkOutBook(title);
         String bookListString = library.generateBookList();
 
-        assertEquals("Nineteen Eighty-Four | " + " George Orwell | " + " 2004" + "\n"
-                + "Crime and Punishment | " + " Fyodor Dostoevsky | " + " 2003" + "\n"
-                + "Another Country | " + " James Baldwin | " + " 2001" + "\n"
-                + "Mrs Dalloway | " + " Virginia Woolf | " + " 2004" + "\n", bookListString);
+        assertEquals("Nineteen Eighty-Four | George Orwell | 2004" + "\n"
+                + "Crime and Punishment | Fyodor Dostoevsky | 2003" + "\n"
+                + "Another Country | James Baldwin | 2001" + "\n"
+                + "Mrs Dalloway | Virginia Woolf | 2004" + "\n", bookListString);
+    }
+
+    @Test
+    public void shouldSendMessageWhenReturnBook() throws IOException {
+        Library library = new Library();
+        String title = "Nineteen Eighty-Four";
+        String titleDoesNotExist = "Java Fundamentals";
+        String checkoutMessage = library.checkOutBook(title);
+        String returnMessage = library.returnBook(title);
+        String returnMessageWhenFail = library.returnBook(titleDoesNotExist);
+
+        assertEquals("Thank you! Enjoy the book", checkoutMessage);
+        assertEquals("Thank you for returning the book", returnMessage);
+        assertEquals("That is not a valid book to return", returnMessageWhenFail);
     }
 }

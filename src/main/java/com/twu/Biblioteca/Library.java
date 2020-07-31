@@ -82,7 +82,7 @@ public class Library {
 
     protected String returnBook(String title) throws IOException {
         List<Book> bookList = getBookList();
-        if (bookList.stream().anyMatch(book -> book.title.equals(title) && book.status.equals(" CHECKOUT"))) {
+        if (bookList.stream().anyMatch(book -> book.title.equals(title) && book.status.equals("CHECKOUT"))) {
             for (int i = 0; i < bookList.size(); i++) {
                 if (bookList.get(i).title.equals(title)) {
                     String author = bookList.get(i).author;

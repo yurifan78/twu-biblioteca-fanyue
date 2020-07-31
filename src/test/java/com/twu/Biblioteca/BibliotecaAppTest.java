@@ -68,4 +68,19 @@ public class BibliotecaAppTest {
         assertEquals("Thank you for returning the book", returnMessage);
         assertEquals("That is not a valid book to return", returnMessageWhenFail);
     }
+
+    @Test
+    public void shouldGenerateBooksInStockAfterReturn() throws IOException {
+        Library library = new Library();
+        String title = "Pride and Prejudice";
+        library.checkOutBook(title);
+        library.returnBook(title);
+        String bookListString = library.generateBookList();
+
+        assertEquals("Pride and Prejudice | Jane Austen | 2012" + "\n"
+                + "Nineteen Eighty-Four | George Orwell | 2004" + "\n"
+                + "Crime and Punishment | Fyodor Dostoevsky | 2003" + "\n"
+                + "Another Country | James Baldwin | 2001" + "\n"
+                + "Mrs Dalloway | Virginia Woolf | 2004" + "\n", bookListString);
+    }
 }

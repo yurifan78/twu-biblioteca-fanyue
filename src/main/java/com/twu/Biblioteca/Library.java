@@ -13,18 +13,20 @@ public class Library {
     protected String generateBookList() {
         BookDataManager bookDataManager = new BookDataManager();
         List<Book> bookList = bookDataManager.getBookList();
-        List<Book> bookInStock = bookList.stream().filter(book -> !book.status.equals("CHECKOUT")).collect(Collectors.toList());
+        List<Book> bookInStock = bookList.stream()
+                .filter(book -> book.getStatus().equals(BookStatus.INSTOCK))
+                .collect(Collectors.toList());
         return getString(bookInStock);
     }
 
     private String getString(List<Book> bookList) {
         StringBuilder bookListString = new StringBuilder();
         for (Book book : bookList) {
-            bookListString.append(book.title)
+            bookListString.append(book.getTitle())
                     .append(" | ")
-                    .append(book.author)
+                    .append(book.getAuthor())
                     .append(" | ")
-                    .append(book.year)
+                    .append(book.getYear())
                     .append("\n");
         }
         return bookListString.toString();
@@ -33,13 +35,14 @@ public class Library {
     protected String checkOutBook(String title) throws IOException {
         BookDataManager bookDataManager = new BookDataManager();
         List<Book> bookList = bookDataManager.getBookList();
-        if (bookList.stream().anyMatch(book -> book.title.equals(title))) {
-            for (int i = 0; i < bookList.size(); i++) {
-                if (bookList.get(i).title.equals(title)) {
-                    String author = bookList.get(i).author;
-                    String year = bookList.get(i).year;
 
-                    bookList.set(i, new Book(title, author, year, "CHECKOUT"));
+        if (bookList.stream().anyMatch(book -> book.getTitle().equals(title))) {
+            for (int i = 0; i < bookList.size(); i++) {
+                if (bookList.get(i).getTitle().equals(title)) {
+                    String author = bookList.get(i).getAuthor();
+                    String year = bookList.get(i).getYear();
+
+                    bookList.set(i, new Book(title, author, year, BookStatus.CHECKOUT));
                     bookDataManager.writeToFile(bookList);
                 }
             }
@@ -52,13 +55,13 @@ public class Library {
     protected String returnBook(String title) throws IOException {
         BookDataManager bookDataManager = new BookDataManager();
         List<Book> bookList = bookDataManager.getBookList();
-        if (bookList.stream().anyMatch(book -> book.title.equals(title) && book.status.equals("CHECKOUT"))) {
-            for (int i = 0; i < bookList.size(); i++) {
-                if (bookList.get(i).title.equals(title)) {
-                    String author = bookList.get(i).author;
-                    String year = bookList.get(i).year;
 
-                    bookList.set(i, new Book(title, author, year, "INSTOCK"));
+        if (bookList.stream().anyMatch(book -> book.getTitle().equals(title)
+                && book.getStatus().equals(BookStatus.CHECKOUT))) {
+            for (int i = 0; i < bookList.size(); i++) {
+                Book book = bookList.get(i);
+                if (book.getTitle().equals(title)) {
+                    book.setStatus(BookStatus.INSTOCK);
                     bookDataManager.writeToFile(bookList);
                 }
             }

@@ -12,8 +12,8 @@ public class BibliotecaAppTest {
 
     @Test
     public void shouldWelcomeCustomerWhenStartApp() {
-        Customer customer = new Customer();
-        String welcomeMessage = customer.welcome();
+        Library library = new Library();
+        String welcomeMessage = library.welcome();
 
         assertEquals("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!", welcomeMessage);
     }

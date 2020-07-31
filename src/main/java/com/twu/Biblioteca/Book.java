@@ -42,7 +42,7 @@ public class Book{
     }
 
     public void setStatus(BookStatus status) {
-        this.status = (status == BookStatus.INSTOCK) ? BookStatus.INSTOCK : BookStatus.CHECKOUT;
+        this.status = status;
     }
 
     @Override

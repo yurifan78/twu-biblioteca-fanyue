@@ -43,7 +43,7 @@ public class BibliotecaApp {
                 + "\n"
                 + "List of Books (Please enter number 1)"
                 + "\n"
-                + "Quit (Please enter number number 0)"
+                + "Quit (Please enter number 0)"
                 + "\n"
                 + "Please enter your number:");
     }

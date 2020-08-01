@@ -38,9 +38,10 @@ public class Library {
         BookDataManager bookDataManager = new BookDataManager();
         List<Book> bookList = bookDataManager.getBookList();
 
-        if (bookList.stream().anyMatch(book -> book.getTitle().equals(title))) {
+        if (bookList.stream().anyMatch(book ->
+                findBookWithTitle(title, book))) {
             for (int i = 0; i < bookList.size(); i++) {
-                if (bookList.get(i).getTitle().equals(title)) {
+                if (findBookWithTitle(title, bookList.get(i))) {
                     String author = bookList.get(i).getAuthor();
                     String year = bookList.get(i).getYear();
 
@@ -54,15 +55,20 @@ public class Library {
         }
     }
 
+    private boolean findBookWithTitle(String title, Book book) {
+        return book.getTitle().toLowerCase().equals(title.toLowerCase().trim());
+    }
+
     protected String returnBook(String title) throws IOException {
         BookDataManager bookDataManager = new BookDataManager();
         List<Book> bookList = bookDataManager.getBookList();
 
-        if (bookList.stream().anyMatch(book -> book.getTitle().equals(title)
-                && book.getStatus().equals(BookStatus.CHECKOUT))) {
+        if (bookList.stream().anyMatch(book ->
+                findBookWithTitle(title, book)
+                || book.getStatus().equals(BookStatus.CHECKOUT))) {
             for (int i = 0; i < bookList.size(); i++) {
                 Book book = bookList.get(i);
-                if (book.getTitle().equals(title)) {
+                if (findBookWithTitle(title, book)) {
                     book.setStatus(BookStatus.INSTOCK);
                     bookDataManager.writeToFile(bookList);
                 }

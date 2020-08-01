@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 public class Library {
 
     protected String welcome() {
-        return "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
+        return "\nWelcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
     }
 
     protected String generateBookList() {

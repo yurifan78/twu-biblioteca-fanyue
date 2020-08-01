@@ -37,11 +37,11 @@ public class BookDataManager {
 
     protected void writeToFile(List<Book> bookList) throws IOException {
         File booksCsv = getFile();
-        BufferedWriter writer = new BufferedWriter(new FileWriter(booksCsv));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(booksCsv));
         for (Book book : bookList) {
-            writer.write(book.toString());
-            writer.newLine();
+            bufferedWriter.write(book.toString());
+            bufferedWriter.newLine();
         }
-        writer.close();
+        bufferedWriter.close();
     }
 }

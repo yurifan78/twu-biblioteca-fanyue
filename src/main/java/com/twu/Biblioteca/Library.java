@@ -65,7 +65,7 @@ public class Library {
 
         if (bookList.stream().anyMatch(book ->
                 findBookWithTitle(title, book)
-                || book.getStatus().equals(BookStatus.CHECKOUT))) {
+                && book.getStatus().equals(BookStatus.CHECKOUT))) {
             for (int i = 0; i < bookList.size(); i++) {
                 Book book = bookList.get(i);
                 if (findBookWithTitle(title, book)) {

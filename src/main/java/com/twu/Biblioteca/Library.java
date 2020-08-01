@@ -6,8 +6,10 @@ import java.util.stream.Collectors;
 
 public class Library {
 
+    Message message = new Message();
+
     protected String welcome() {
-        return "\nWelcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
+        return message.getWelcomeMessage();
     }
 
     protected String generateBookList() {
@@ -46,9 +48,9 @@ public class Library {
                     bookDataManager.writeToFile(bookList);
                 }
             }
-            return "Thank you! Enjoy the book";
+            return message.getMessageWhenCheckOutSuccess();
         } else {
-            return "Sorry, that book is not available";
+            return message.getMessageWhenCheckOutFail();
         }
     }
 
@@ -65,9 +67,9 @@ public class Library {
                     bookDataManager.writeToFile(bookList);
                 }
             }
-            return "Thank you for returning the book";
+            return message.getMessageWhenReturnSuccess();
         } else {
-            return "That is not a valid book to return";
+            return message.getMessageWhenReturnFail();
         }
     }
 }

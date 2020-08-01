@@ -27,7 +27,7 @@ public class BibliotecaAppTest {
                 + "Nineteen Eighty-Four | George Orwell | 2004" + "\n"
                 + "Crime and Punishment | Fyodor Dostoevsky | 2003" + "\n"
                 + "Another Country | James Baldwin | 2001" + "\n"
-                + "Mrs Dalloway | Virginia Woolf | 2004" + "\n", bookListString);
+                + "Mrs Dalloway | Virginia Woolf | 2004", bookListString);
     }
 
     @Test
@@ -52,7 +52,7 @@ public class BibliotecaAppTest {
         assertEquals("Nineteen Eighty-Four | George Orwell | 2004" + "\n"
                 + "Crime and Punishment | Fyodor Dostoevsky | 2003" + "\n"
                 + "Another Country | James Baldwin | 2001" + "\n"
-                + "Mrs Dalloway | Virginia Woolf | 2004" + "\n", bookListString);
+                + "Mrs Dalloway | Virginia Woolf | 2004", bookListString);
     }
 
     @Test
@@ -81,6 +81,6 @@ public class BibliotecaAppTest {
                 + "Nineteen Eighty-Four | George Orwell | 2004" + "\n"
                 + "Crime and Punishment | Fyodor Dostoevsky | 2003" + "\n"
                 + "Another Country | James Baldwin | 2001" + "\n"
-                + "Mrs Dalloway | Virginia Woolf | 2004" + "\n", bookListString);
+                + "Mrs Dalloway | Virginia Woolf | 2004", bookListString);
     }
 }

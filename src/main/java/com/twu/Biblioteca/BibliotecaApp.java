@@ -32,6 +32,7 @@ public class BibliotecaApp {
                 String messageOfReturn;
 
                 do {
+                    System.out.print("\n");
                     System.out.print("Please enter title of book to checkout:");
                     String title = new Scanner(System.in).nextLine();
                     messageOfCheckout = library.checkOutBook(title);
@@ -41,7 +42,8 @@ public class BibliotecaApp {
                 TimeUnit.SECONDS.sleep(1);
 
                 do {
-                    System.out.print("\nPlease enter title of book to return:");
+                    System.out.print("\n");
+                    System.out.print("Please enter title of book to return:");
                     String titleOfReturned = new Scanner(System.in).nextLine();
                     messageOfReturn = library.returnBook(titleOfReturned);
                     System.out.println(messageOfReturn);

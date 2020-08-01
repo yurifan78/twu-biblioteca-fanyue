@@ -31,7 +31,7 @@ public class Library {
                     .append(book.getYear())
                     .append("\n");
         }
-        return bookListString.toString();
+        return bookListString.toString().trim();
     }
 
     protected String checkOutBook(String title) throws IOException {

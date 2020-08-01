@@ -20,11 +20,11 @@ public class BookDataManager {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(booksCsv))) {
             String row;
             while ((row = bufferedReader.readLine()) != null) {
-                String[] books = row.split(", ");
-                String title = books[0];
-                String author = books[1];
-                String year = books[2];
-                String status = books[3];
+                String[] books = row.split(",");
+                String title = books[0].trim();
+                String author = books[1].trim();
+                String year = books[2].trim();
+                String status = books[3].trim();
                 Book book = new Book(title, author, year,
                         status.equals("INSTOCK") ? BookStatus.INSTOCK : BookStatus.CHECKOUT);
                 bookList.add(book);

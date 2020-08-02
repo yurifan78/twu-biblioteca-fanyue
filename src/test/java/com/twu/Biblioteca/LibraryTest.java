@@ -22,8 +22,8 @@ public class LibraryTest {
     @Test
     public void shouldGenerateBookList() {
         Library library = new Library();
-        String bookList = library.generateBookList();
-        String movieList = library.generateMovieList();
+        String bookList = library.generateList("books.csv");
+        String movieList = library.generateList("movies.csv");
         // test generate movie list
         System.out.println(movieList);
 
@@ -51,7 +51,7 @@ public class LibraryTest {
         Library library = new Library();
         String title = "Pride and Prejudice";
         library.checkOutBook(title);
-        String bookList = library.generateBookList();
+        String bookList = library.generateList("books.csv");
 
         assertEquals("Nineteen Eighty-Four | George Orwell | 2004"
                 + "\nCrime and Punishment | Fyodor Dostoevsky | 2003"
@@ -79,7 +79,7 @@ public class LibraryTest {
         String title = "Pride and Prejudice";
         library.checkOutBook(title);
         library.returnBook(title);
-        String bookList = library.generateBookList();
+        String bookList = library.generateList("books.csv");
 
         assertEquals("Pride and Prejudice | Jane Austen | 2012"
                 + "\nNineteen Eighty-Four | George Orwell | 2004"

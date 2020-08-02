@@ -21,7 +21,7 @@ public class BibliotecaApp {
             if (number == 0) {
                 return;
             } else if (number == 1) {
-                render(library.generateBookList());
+                render(library.generateList("books.csv"));
 
                 checkOutBook(library, message);
                 TimeUnit.SECONDS.sleep(1);

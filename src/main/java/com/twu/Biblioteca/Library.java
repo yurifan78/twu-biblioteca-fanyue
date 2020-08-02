@@ -13,23 +13,19 @@ public class Library {
         return message.getWelcomeMessage();
     }
 
-    protected String generateBookList() {
+    protected String generateList(String fileName) {
         DataManager dataManager = new DataManager();
-        List<Item> bookList = dataManager.getList("books.csv");
-
-        List<Item> bookInStock = bookList.stream()
-                .filter(book -> book.getStatus().equals(Status.INSTOCK))
+        List<Item> list = dataManager.getList(fileName);
+        List<Item> itemsInStock = list.stream()
+                .filter(item -> item.getStatus().equals(Status.INSTOCK))
                 .collect(Collectors.toList());
-        return getBookString(bookInStock);
-    }
 
-    protected String generateMovieList() {
-        DataManager dataManager = new DataManager();
-        List<Item> movieList = dataManager.getList("movies.csv");
-        List<Item> movieInStock = movieList.stream()
-                .filter(book -> book.getStatus().equals(Status.INSTOCK))
-                .collect(Collectors.toList());
-        return getMovieString(movieInStock);
+        if (fileName.equals("books.csv")) {
+            return getBookString(itemsInStock);
+        } else if (fileName.equals("movies.csv")) {
+            return getMovieString(itemsInStock);
+        }
+        return null;
     }
 
     private String getMovieString(List<Item> movieList) {
@@ -39,7 +35,7 @@ public class Library {
                     .append(" | ")
                     .append(movie.getYear())
                     .append(" | ")
-                    .append(movie.getStatus())
+                    .append(movie.getAuthor())
                     .append(" | ")
                     .append(movie.getRate())
                     .append("\n");

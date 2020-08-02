@@ -1,5 +1,10 @@
 package com.twu.Biblioteca;
 
+import com.twu.Biblioteca.Items.Book;
+import com.twu.Biblioteca.Items.Item;
+import com.twu.Biblioteca.Items.Movie;
+import com.twu.Biblioteca.Items.Status;
+
 import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -121,6 +126,19 @@ public class Library {
         } else {
             return message.getMessageWhenReturnFail();
         }
+    }
+
+    protected String personalInfo (Customer customer) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("name: ")
+                .append(customer.getName())
+                .append("\n")
+                .append("email: ")
+                .append(customer.getEmail())
+                .append("\n")
+                .append("phone: ")
+                .append(customer.getPhone());
+        return stringBuilder.toString();
     }
 }
 

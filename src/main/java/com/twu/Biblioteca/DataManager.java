@@ -1,5 +1,10 @@
 package com.twu.Biblioteca;
 
+import com.twu.Biblioteca.Items.Book;
+import com.twu.Biblioteca.Items.Item;
+import com.twu.Biblioteca.Items.Movie;
+import com.twu.Biblioteca.Items.Status;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;

@@ -8,6 +8,7 @@ import static java.lang.System.out;
 
 public class BibliotecaApp {
     public static void main(String[] args) throws IOException, InterruptedException {
+
         Library library = new Library();
         render(library.welcome());
 

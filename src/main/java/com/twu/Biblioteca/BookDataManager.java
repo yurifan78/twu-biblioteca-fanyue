@@ -26,7 +26,7 @@ public class BookDataManager {
                 String year = books[2].trim();
                 String status = books[3].trim();
                 Book book = new Book(title, author, year,
-                        status.equals("INSTOCK") ? BookStatus.INSTOCK : BookStatus.CHECKOUT);
+                        status.equals("INSTOCK") ? Status.INSTOCK : Status.CHECKOUT);
                 bookList.add(book);
             }
         } catch (IOException e) {

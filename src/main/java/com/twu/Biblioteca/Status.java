@@ -1,5 +1,5 @@
 package com.twu.Biblioteca;
 
-public enum BookStatus {
+public enum Status {
     INSTOCK, CHECKOUT
 }

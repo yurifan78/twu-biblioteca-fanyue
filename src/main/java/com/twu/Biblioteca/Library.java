@@ -16,7 +16,7 @@ public class Library {
         BookDataManager bookDataManager = new BookDataManager();
         List<Book> bookList = bookDataManager.getBookList();
         List<Book> bookInStock = bookList.stream()
-                .filter(book -> book.getStatus().equals(BookStatus.INSTOCK))
+                .filter(book -> book.getStatus().equals(Status.INSTOCK))
                 .collect(Collectors.toList());
         return getString(bookInStock);
     }
@@ -45,7 +45,7 @@ public class Library {
                     String author = bookList.get(i).getAuthor();
                     String year = bookList.get(i).getYear();
 
-                    bookList.set(i, new Book(title, author, year, BookStatus.CHECKOUT));
+                    bookList.set(i, new Book(title, author, year, Status.CHECKOUT));
                     bookDataManager.writeToFile(bookList);
                 }
             }
@@ -65,11 +65,11 @@ public class Library {
 
         if (bookList.stream().anyMatch(book ->
                 findBookWithTitle(title, book)
-                && book.getStatus().equals(BookStatus.CHECKOUT))) {
+                && book.getStatus().equals(Status.CHECKOUT))) {
             for (int i = 0; i < bookList.size(); i++) {
                 Book book = bookList.get(i);
                 if (findBookWithTitle(title, book)) {
-                    book.setStatus(BookStatus.INSTOCK);
+                    book.setStatus(Status.INSTOCK);
                     bookDataManager.writeToFile(bookList);
                 }
             }

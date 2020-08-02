@@ -4,9 +4,9 @@ public class Book{
     private String title;
     private String author;
     private String year;
-    private BookStatus status;
+    private Status status;
 
-    public Book(String title, String author, String year, BookStatus status) {
+    public Book(String title, String author, String year, Status status) {
         this.title = title;
         this.author = author;
         this.year = year;
@@ -25,7 +25,7 @@ public class Book{
         return year;
     }
 
-    public BookStatus getStatus() {
+    public Status getStatus() {
         return status;
     }
 
@@ -41,7 +41,7 @@ public class Book{
         this.year = year;
     }
 
-    public void setStatus(BookStatus status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

@@ -57,11 +57,11 @@ public class DataManager {
         return status.equals("INSTOCK") ? Status.INSTOCK : Status.CHECKOUT;
     }
 
-    protected void writeToFile(List<Item> list) throws IOException {
-        File booksCsv = getFile("books.csv");
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(booksCsv));
-        for (Item book : list) {
-            bufferedWriter.write(book.toString());
+    protected void writeToFile(List<Item> list, String fileName) throws IOException {
+        File csv = getFile(fileName);
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(csv));
+        for (Item item : list) {
+            bufferedWriter.write(item.toString());
             bufferedWriter.newLine();
         }
         bufferedWriter.close();

@@ -52,6 +52,10 @@ public class LibraryTest {
         String title = "Pride and Prejudice";
         library.checkOutBook(title);
         String bookList = library.generateList("books.csv");
+        // test movie checkout
+        String movieTitle = "The Shawshank Redemption";
+        System.out.println(library.checkOutMovie(movieTitle));
+        System.out.println(library.generateList("movies.csv"));
 
         assertEquals("Nineteen Eighty-Four | George Orwell | 2004"
                 + "\nCrime and Punishment | Fyodor Dostoevsky | 2003"

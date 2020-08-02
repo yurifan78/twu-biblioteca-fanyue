@@ -57,18 +57,18 @@ public class Library {
     }
 
     protected String checkOutBook(String title) throws IOException {
-        DataManager bookDataManager = new DataManager();
-        List<Item> bookList = bookDataManager.getList("books.csv");
+        DataManager dataManager = new DataManager();
+        List<Item> bookList = dataManager.getList("books.csv");
 
         if (bookList.stream().anyMatch(book ->
-                findBookWithTitle(title, book))) {
+                findItemWithTitle(title, book))) {
             for (int i = 0; i < bookList.size(); i++) {
-                if (findBookWithTitle(title, bookList.get(i))) {
+                if (findItemWithTitle(title, bookList.get(i))) {
                     String author = bookList.get(i).getAuthor();
                     String year = bookList.get(i).getYear();
 
                     bookList.set(i, new Book(title, author, year, Status.CHECKOUT));
-                    bookDataManager.writeToFile(bookList);
+                    dataManager.writeToFile(bookList, "books.csv");
                 }
             }
             return message.getMessageWhenCheckOutSuccess();
@@ -77,8 +77,30 @@ public class Library {
         }
     }
 
-    private boolean findBookWithTitle(String title, Item book) {
-        return book.getTitle().toLowerCase().equals(title.toLowerCase().trim());
+    protected String checkOutMovie(String name) throws IOException {
+        DataManager dataManager = new DataManager();
+        List<Item> list = dataManager.getList("movies.csv");
+
+        if (list.stream().anyMatch(movie ->
+                findItemWithTitle(name, movie))) {
+            for (int i = 0; i < list.size(); i++) {
+                if (findItemWithTitle(name, list.get(i))) {
+                    String director = list.get(i).getAuthor();
+                    String year = list.get(i).getYear();
+                    int rate = list.get(i).getRate();
+
+                    list.set(i, new Movie(name, year, director, rate, Status.CHECKOUT));
+                    dataManager.writeToFile(list, "movies.csv");
+                }
+            }
+            return message.getMessageWhenCheckOutMovieSuccess();
+        } else {
+            return message.getMessageWhenCheckOutMovieFail();
+        }
+    }
+
+    private boolean findItemWithTitle(String title, Item item) {
+        return item.getTitle().toLowerCase().equals(title.toLowerCase().trim());
     }
 
     protected String returnBook(String title) throws IOException {
@@ -86,13 +108,13 @@ public class Library {
         List<Item> bookList = bookDataManager.getList("books.csv");
 
         if (bookList.stream().anyMatch(book ->
-                findBookWithTitle(title, book)
+                findItemWithTitle(title, book)
                 && book.getStatus().equals(Status.CHECKOUT))) {
             for (int i = 0; i < bookList.size(); i++) {
                 Item book = bookList.get(i);
-                if (findBookWithTitle(title, book)) {
+                if (findItemWithTitle(title, book)) {
                     book.setStatus(Status.INSTOCK);
-                    bookDataManager.writeToFile(bookList);
+                    bookDataManager.writeToFile(bookList, "books.csv");
                 }
             }
             return message.getMessageWhenReturnSuccess();

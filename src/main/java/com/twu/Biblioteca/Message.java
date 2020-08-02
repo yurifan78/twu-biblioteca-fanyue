@@ -6,12 +6,16 @@ public class Message {
     private final String messageWhenReturnFail;
     private final String messageWhenCheckOutSuccess;
     private final String messageWhenCheckOutFail;
+    private final String messageWhenCheckOutMovieSuccess;
+    private final String messageWhenCheckOutMovieFail;
     private final String welcomeMessage;
 
     public Message() {
         this.messageWhenSelectInvalid = "Please select a valid option!";
         this.messageWhenCheckOutSuccess = "Thank you! Enjoy the book";
         this.messageWhenCheckOutFail = "Sorry, that book is not available";
+        this.messageWhenCheckOutMovieSuccess = "Thank you! Enjoy the movie";
+        this.messageWhenCheckOutMovieFail = "Sorry, that movie is not available";
         this.messageWhenReturnSuccess = "Thank you for returning the book";
         this.messageWhenReturnFail = "That is not a valid book to return";
         this.welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
@@ -27,6 +31,14 @@ public class Message {
 
     public String getMessageWhenCheckOutFail() {
         return messageWhenCheckOutFail;
+    }
+
+    public String getMessageWhenCheckOutMovieSuccess() {
+        return messageWhenCheckOutMovieSuccess;
+    }
+
+    public String getMessageWhenCheckOutMovieFail() {
+        return messageWhenCheckOutMovieFail;
     }
 
     public String getMessageWhenReturnSuccess() {

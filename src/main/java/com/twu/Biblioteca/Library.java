@@ -13,15 +13,39 @@ public class Library {
     }
 
     protected String generateBookList() {
-        BookDataManager bookDataManager = new BookDataManager();
+        DataManager bookDataManager = new DataManager();
         List<Book> bookList = bookDataManager.getBookList();
         List<Book> bookInStock = bookList.stream()
                 .filter(book -> book.getStatus().equals(Status.INSTOCK))
                 .collect(Collectors.toList());
-        return getString(bookInStock);
+        return getBookString(bookInStock);
     }
 
-    private String getString(List<Book> bookList) {
+    protected String generateMovieList() {
+        DataManager dataManager = new DataManager();
+        List<Movie> movieList = dataManager.getMovieList();
+        List<Movie> movieInStock = movieList.stream()
+                .filter(book -> book.getStatus().equals(Status.INSTOCK))
+                .collect(Collectors.toList());
+        return getMovieString(movieInStock);
+    }
+
+    private String getMovieString(List<Movie> movieList) {
+        StringBuilder movieListString = new StringBuilder();
+        for (Movie movie : movieList) {
+            movieListString.append(movie.getName())
+                    .append(" | ")
+                    .append(movie.getYear())
+                    .append(" | ")
+                    .append(movie.getDirector())
+                    .append(" | ")
+                    .append(movie.getRate())
+                    .append("\n");
+        }
+        return movieListString.toString().trim();
+    }
+
+    private String getBookString(List<Book> bookList) {
         StringBuilder bookListString = new StringBuilder();
         for (Book book : bookList) {
             bookListString.append(book.getTitle())
@@ -35,7 +59,7 @@ public class Library {
     }
 
     protected String checkOutBook(String title) throws IOException {
-        BookDataManager bookDataManager = new BookDataManager();
+        DataManager bookDataManager = new DataManager();
         List<Book> bookList = bookDataManager.getBookList();
 
         if (bookList.stream().anyMatch(book ->
@@ -60,7 +84,7 @@ public class Library {
     }
 
     protected String returnBook(String title) throws IOException {
-        BookDataManager bookDataManager = new BookDataManager();
+        DataManager bookDataManager = new DataManager();
         List<Book> bookList = bookDataManager.getBookList();
 
         if (bookList.stream().anyMatch(book ->

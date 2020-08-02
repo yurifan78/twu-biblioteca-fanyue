@@ -24,6 +24,7 @@ public class LibraryTest {
         Library library = new Library();
         String bookList = library.generateBookList();
         String movieList = library.generateMovieList();
+        // test generate movie list
         System.out.println(movieList);
 
         assertEquals("Pride and Prejudice | Jane Austen | 2012"

@@ -32,30 +32,34 @@ public class DataManager {
     }
 
     private Item getItem(String row) {
-        String[] books = row.split(",");
-        String title = books[0].trim();
-        String author = books[1].trim();
-        String year = books[2].trim();
-        String status = books[3].trim();
-        return new Book(title, author, year,
-                status.equals("INSTOCK") ? Status.INSTOCK : Status.CHECKOUT);
+        String[] items = row.split(",");
+        if (items.length == 4) {
+            String title = items[0].trim();
+            String author = items[1].trim();
+            String year = items[2].trim();
+            String status = items[3].trim();
+            return new Book(title, author, year,
+                    getInStock(status));
+        } else if (items.length == 5) {
+            String name = items[0].trim();
+            String year = items[1].trim();
+            String director = items[2].trim();
+            String rate = items[3].trim();
+            String status = items[4].trim();
+            return new Movie(name, year, director, parseInt(rate),
+                    getInStock(status));
+        }
+        return null;
     }
 
-    private Movie getMovie(String row) {
-        String[] movies = row.split(",");
-        String name = movies[0].trim();
-        String year = movies[1].trim();
-        String director = movies[2].trim();
-        String rate = movies[3].trim();
-        String status = movies[4].trim();
-        return new Movie(name, year, director, parseInt(rate),
-                status.equals("INSTOCK") ? Status.INSTOCK : Status.CHECKOUT);
+    private Status getInStock(String status) {
+        return status.equals("INSTOCK") ? Status.INSTOCK : Status.CHECKOUT;
     }
 
-    protected void writeToFile(List<Item> bookList) throws IOException {
+    protected void writeToFile(List<Item> list) throws IOException {
         File booksCsv = getFile("books.csv");
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(booksCsv));
-        for (Item book : bookList) {
+        for (Item book : list) {
             bufferedWriter.write(book.toString());
             bufferedWriter.newLine();
         }

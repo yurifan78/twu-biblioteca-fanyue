@@ -26,6 +26,11 @@ public class BibliotecaApp {
                 checkOutBook(library, message);
                 TimeUnit.SECONDS.sleep(1);
                 returnBook(library, message);
+            } else if (number == 2) {
+                render(library.generateList("movies.csv"));
+
+                checkOutMovie(library, message);
+
             } else {
                 out.println(message.getMessageWhenSelectInvalid());
             }
@@ -43,6 +48,8 @@ public class BibliotecaApp {
                 + "\n"
                 + "List of Books (Please enter number 1)"
                 + "\n"
+                + "List of Movies (Please enter number 2)"
+                + "\n"
                 + "Quit (Please enter number 0)"
                 + "\n"
                 + "Please enter your number:");
@@ -57,6 +64,17 @@ public class BibliotecaApp {
             messageOfReturn = library.returnBook(titleOfReturned);
             out.println(messageOfReturn);
         } while (messageOfReturn.equals(message.getMessageWhenReturnFail()));
+    }
+
+    private static void checkOutMovie(Library library, Message message) throws IOException {
+        String messageOfCheckout;
+        do {
+            out.print("\n");
+            out.print("Please enter title of movie to checkout:");
+            String name = new Scanner(System.in).nextLine();
+            messageOfCheckout = library.checkOutMovie(name);
+            out.println(messageOfCheckout);
+        } while (messageOfCheckout.equals(message.getMessageWhenCheckOutMovieFail()));
     }
 
     private static void checkOutBook(Library library, Message message) throws IOException {

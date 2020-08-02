@@ -58,17 +58,17 @@ public class Library {
 
     protected String checkOutBook(String title) throws IOException {
         DataManager dataManager = new DataManager();
-        List<Item> bookList = dataManager.getList("books.csv");
+        List<Item> list = dataManager.getList("books.csv");
 
-        if (bookList.stream().anyMatch(book ->
+        if (list.stream().anyMatch(book ->
                 findItemWithTitle(title, book))) {
-            for (int i = 0; i < bookList.size(); i++) {
-                if (findItemWithTitle(title, bookList.get(i))) {
-                    String author = bookList.get(i).getAuthor();
-                    String year = bookList.get(i).getYear();
+            for (int i = 0; i < list.size(); i++) {
+                if (findItemWithTitle(title, list.get(i))) {
+                    String author = list.get(i).getAuthor();
+                    String year = list.get(i).getYear();
 
-                    bookList.set(i, new Book(title, author, year, Status.CHECKOUT));
-                    dataManager.writeToFile(bookList, "books.csv");
+                    list.set(i, new Book(title, author, year, Status.CHECKOUT));
+                    dataManager.writeToFile(list, "books.csv");
                 }
             }
             return message.getMessageWhenCheckOutSuccess();

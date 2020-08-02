@@ -14,6 +14,7 @@ public class Movie extends Item{
         this.rate = rate;
         this.status = status;
     }
+
     @Override
     public String getTitle() {
         return name;

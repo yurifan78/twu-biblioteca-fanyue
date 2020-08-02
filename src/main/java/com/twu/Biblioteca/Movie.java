@@ -1,6 +1,6 @@
 package com.twu.Biblioteca;
 
-public class Movie{
+public class Movie extends Item{
     private String name;
     private String year;
     private String director;

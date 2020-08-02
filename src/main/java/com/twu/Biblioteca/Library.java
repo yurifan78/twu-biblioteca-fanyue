@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 public class Library {
 
+    Collection<Item> items;
     Message message = new Message();
 
     protected String welcome() {
@@ -13,8 +14,9 @@ public class Library {
     }
 
     protected String generateBookList() {
-        DataManager bookDataManager = new DataManager();
-        List<Book> bookList = bookDataManager.getBookList();
+        DataManager dataManager = new DataManager();
+        List<Book> bookList = dataManager.getBookList();
+
         List<Book> bookInStock = bookList.stream()
                 .filter(book -> book.getStatus().equals(Status.INSTOCK))
                 .collect(Collectors.toList());

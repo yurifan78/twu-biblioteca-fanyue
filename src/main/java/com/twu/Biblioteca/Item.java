@@ -5,13 +5,7 @@ public class Item {
     protected String year;
     protected String author;
     protected Status status;
-
-    public Item(String title, String year, String author, Status status) {
-        this.title = title;
-        this.year = year;
-        this.author = author;
-        this.status = status;
-    }
+    protected int rate;
 
     public Item() {
 
@@ -32,4 +26,13 @@ public class Item {
     public String getAuthor() {
         return author;
     }
+
+    public int getRate() {
+        return rate;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
 }

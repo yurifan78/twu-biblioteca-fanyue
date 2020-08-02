@@ -15,9 +15,9 @@ public class Library {
 
     protected String generateBookList() {
         DataManager dataManager = new DataManager();
-        List<Book> bookList = dataManager.getBookList();
+        List<Item> bookList = dataManager.getList("books.csv");
 
-        List<Book> bookInStock = bookList.stream()
+        List<Item> bookInStock = bookList.stream()
                 .filter(book -> book.getStatus().equals(Status.INSTOCK))
                 .collect(Collectors.toList());
         return getBookString(bookInStock);
@@ -25,21 +25,21 @@ public class Library {
 
     protected String generateMovieList() {
         DataManager dataManager = new DataManager();
-        List<Movie> movieList = dataManager.getMovieList();
-        List<Movie> movieInStock = movieList.stream()
+        List<Item> movieList = dataManager.getList("movies.csv");
+        List<Item> movieInStock = movieList.stream()
                 .filter(book -> book.getStatus().equals(Status.INSTOCK))
                 .collect(Collectors.toList());
         return getMovieString(movieInStock);
     }
 
-    private String getMovieString(List<Movie> movieList) {
+    private String getMovieString(List<Item> movieList) {
         StringBuilder movieListString = new StringBuilder();
-        for (Movie movie : movieList) {
-            movieListString.append(movie.getName())
+        for (Item movie : movieList) {
+            movieListString.append(movie.getTitle())
                     .append(" | ")
                     .append(movie.getYear())
                     .append(" | ")
-                    .append(movie.getDirector())
+                    .append(movie.getStatus())
                     .append(" | ")
                     .append(movie.getRate())
                     .append("\n");
@@ -47,9 +47,9 @@ public class Library {
         return movieListString.toString().trim();
     }
 
-    private String getBookString(List<Book> bookList) {
+    private String getBookString(List<Item> bookList) {
         StringBuilder bookListString = new StringBuilder();
-        for (Book book : bookList) {
+        for (Item book : bookList) {
             bookListString.append(book.getTitle())
                     .append(" | ")
                     .append(book.getAuthor())
@@ -62,7 +62,7 @@ public class Library {
 
     protected String checkOutBook(String title) throws IOException {
         DataManager bookDataManager = new DataManager();
-        List<Book> bookList = bookDataManager.getBookList();
+        List<Item> bookList = bookDataManager.getList("books.csv");
 
         if (bookList.stream().anyMatch(book ->
                 findBookWithTitle(title, book))) {
@@ -81,19 +81,19 @@ public class Library {
         }
     }
 
-    private boolean findBookWithTitle(String title, Book book) {
+    private boolean findBookWithTitle(String title, Item book) {
         return book.getTitle().toLowerCase().equals(title.toLowerCase().trim());
     }
 
     protected String returnBook(String title) throws IOException {
         DataManager bookDataManager = new DataManager();
-        List<Book> bookList = bookDataManager.getBookList();
+        List<Item> bookList = bookDataManager.getList("books.csv");
 
         if (bookList.stream().anyMatch(book ->
                 findBookWithTitle(title, book)
                 && book.getStatus().equals(Status.CHECKOUT))) {
             for (int i = 0; i < bookList.size(); i++) {
-                Book book = bookList.get(i);
+                Item book = bookList.get(i);
                 if (findBookWithTitle(title, book)) {
                     book.setStatus(Status.INSTOCK);
                     bookDataManager.writeToFile(bookList);

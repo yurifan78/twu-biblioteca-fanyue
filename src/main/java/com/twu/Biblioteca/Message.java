@@ -9,6 +9,7 @@ public class Message {
     private final String messageWhenCheckOutMovieSuccess;
     private final String messageWhenCheckOutMovieFail;
     private final String welcomeMessage;
+    private final String identityCheckMessage;
 
     public Message() {
         this.messageWhenSelectInvalid = "Please select a valid option!";
@@ -19,6 +20,7 @@ public class Message {
         this.messageWhenReturnSuccess = "Thank you for returning the book";
         this.messageWhenReturnFail = "That is not a valid book to return";
         this.welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
+        this.identityCheckMessage = "Oops, your username or password is incorrect";
     }
 
     public String getMessageWhenSelectInvalid() {
@@ -51,5 +53,9 @@ public class Message {
 
     public String getWelcomeMessage() {
         return welcomeMessage;
+    }
+
+    public String getIdentityCheckMessage() {
+        return identityCheckMessage;
     }
 }

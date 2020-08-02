@@ -8,13 +8,15 @@ import static java.lang.System.out;
 
 public class BibliotecaApp {
     public static void main(String[] args) throws IOException, InterruptedException {
-
         Library library = new Library();
+        Message message = new Message();
+
         render(library.welcome());
+        // scanner does not hold username value til ps input;
+        identityAuthentication(library);
 
         while (true) {
             Scanner scanner = new Scanner(System.in);
-            Message message = new Message();
 
             menu();
             int number = scanner.nextInt();
@@ -37,6 +39,30 @@ public class BibliotecaApp {
             }
             TimeUnit.SECONDS.sleep(1);
         }
+
+    }
+
+    private static void identityAuthentication(Library library) {
+        String username;
+        String password;
+        do {
+            String[] identity = login();
+            username = identity[0];
+            password = identity[1];
+        } while (!library.identityCheck(username, password));
+    }
+
+    private static String[] login() {
+        Scanner scanner = new Scanner(System.in);
+        out.print("\nLogin" + "\n" + "your name: ");
+        String username = scanner.nextLine();
+        out.print("your password: ");
+        String password = scanner.nextLine();
+
+        String[] identity = new String[2];
+        identity[0] = username;
+        identity[1] = password;
+        return identity;
     }
 
     private static void render(String string) {

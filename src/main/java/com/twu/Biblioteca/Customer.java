@@ -22,4 +22,16 @@ public class Customer {
     public String getPhone() {
         return phone;
     }
+
+    @Override
+    public String toString() {
+        return "name: " +
+                getName() +
+                "\n" +
+                "email: " +
+                getEmail() +
+                "\n" +
+                "phone: " +
+                getPhone();
+    }
 }

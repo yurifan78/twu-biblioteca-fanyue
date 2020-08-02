@@ -14,6 +14,10 @@ public class Library {
     Collection<Item> items;
     Message message = new Message();
 
+    protected boolean identityCheck(String username, String password) {
+        return username.equals("yuri") && password.equals("2333");
+    }
+
     protected String welcome() {
         return message.getWelcomeMessage();
     }
@@ -128,17 +132,5 @@ public class Library {
         }
     }
 
-    protected String personalInfo (Customer customer) {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("name: ")
-                .append(customer.getName())
-                .append("\n")
-                .append("email: ")
-                .append(customer.getEmail())
-                .append("\n")
-                .append("phone: ")
-                .append(customer.getPhone());
-        return stringBuilder.toString();
-    }
 }
 

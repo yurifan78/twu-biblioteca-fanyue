@@ -31,6 +31,7 @@ public class DataManager {
         return list;
     }
 
+    // identify whether the item is a book or a movie.
     private Item getItem(String row) {
         String[] items = row.split(",");
         if (items.length == 4) {

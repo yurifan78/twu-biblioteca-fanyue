@@ -14,10 +14,10 @@ import static java.lang.Integer.parseInt;
 
 public class DataManager {
 
-    private File getFile(String name) {
+    private File getFile(String fileName) {
         return new File(Objects.requireNonNull(getClass()
                 .getClassLoader()
-                .getResource(name))
+                .getResource(fileName))
                 .getFile());
     }
 
@@ -45,7 +45,7 @@ public class DataManager {
             String year = items[2].trim();
             String status = items[3].trim();
             return new Book(title, author, year,
-                    getInStock(status));
+                    getInStockItems(status));
         } else if (items.length == 5) {
             String name = items[0].trim();
             String year = items[1].trim();
@@ -53,12 +53,12 @@ public class DataManager {
             String rate = items[3].trim();
             String status = items[4].trim();
             return new Movie(name, year, director, parseInt(rate),
-                    getInStock(status));
+                    getInStockItems(status));
         }
         return null;
     }
 
-    private Status getInStock(String status) {
+    private Status getInStockItems(String status) {
         return status.equals("INSTOCK") ? Status.INSTOCK : Status.CHECKOUT;
     }
 

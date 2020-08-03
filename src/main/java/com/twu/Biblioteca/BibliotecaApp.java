@@ -30,7 +30,7 @@ public class BibliotecaApp {
                 return;
             } else if (number == 1) {
 
-                format(library.generateList("books.csv"));
+                format(library.generateList(File.BOOKS.getFileName()));
 
                 checkOutBook(library, message, customer);
                 TimeUnit.SECONDS.sleep(1);
@@ -38,7 +38,7 @@ public class BibliotecaApp {
 
             } else if (number == 2) {
 
-                format(library.generateList("movies.csv"));
+                format(library.generateList(File.MOVIES.getFileName()));
                 checkOutMovie(library, message);
 
             } else if (number == 3) {

@@ -33,9 +33,9 @@ public class Library {
                 .filter(item -> isItemCheckOut(item, Status.INSTOCK))
                 .collect(Collectors.toList());
 
-        if (fileName.equals(File.BOOKS.getFileName())) {
+        if (fileName.equals(FileName.BOOKS.getFileName())) {
             return getBookString(itemsInStock);
-        } else if (fileName.equals(File.MOVIES.getFileName())) {
+        } else if (fileName.equals(FileName.MOVIES.getFileName())) {
             return getMovieString(itemsInStock);
         }
         return null;
@@ -71,7 +71,7 @@ public class Library {
 
     protected String checkOutBook(String title, Customer customer) throws IOException {
         DataManager dataManager = new DataManager();
-        List<Item> list = dataManager.getList(File.BOOKS.getFileName());
+        List<Item> list = dataManager.getList(FileName.BOOKS.getFileName());
 
         if (list.stream().anyMatch(book ->
                 findItemWithTitle(title, book))) {
@@ -83,7 +83,7 @@ public class Library {
                     Book book = new Book(title, author, year, Status.CHECKOUT);
                     booksCheckedOutMap.put(customer, book);
                     list.set(i, book);
-                    dataManager.writeToFile(list, File.BOOKS.getFileName());
+                    dataManager.writeToFile(list, FileName.BOOKS.getFileName());
                 }
             }
             return message.getMessageWhenCheckOutSuccess();
@@ -94,7 +94,7 @@ public class Library {
 
     protected String checkOutMovie(String name) throws IOException {
         DataManager dataManager = new DataManager();
-        List<Item> list = dataManager.getList(File.MOVIES.getFileName());
+        List<Item> list = dataManager.getList(FileName.MOVIES.getFileName());
 
         if (list.stream().anyMatch(movie ->
                 findItemWithTitle(name, movie))) {
@@ -106,7 +106,7 @@ public class Library {
                     int rate = list.get(i).getRate();
 
                     list.set(i, new Movie(name, year, director, rate, Status.CHECKOUT));
-                    dataManager.writeToFile(list, File.MOVIES.getFileName());
+                    dataManager.writeToFile(list, FileName.MOVIES.getFileName());
                 }
             }
 
@@ -122,14 +122,14 @@ public class Library {
 
     protected String returnBook(String title) throws IOException {
         DataManager bookDataManager = new DataManager();
-        List<Item> bookList = bookDataManager.getList(File.BOOKS.getFileName());
+        List<Item> bookList = bookDataManager.getList(FileName.BOOKS.getFileName());
 
         if (isItemExist(title, bookList)) {
             for (int i = 0; i < bookList.size(); i++) {
                 Item book = bookList.get(i);
                 if (findItemWithTitle(title, book)) {
                     book.setStatus(Status.INSTOCK);
-                    bookDataManager.writeToFile(bookList, File.BOOKS.getFileName());
+                    bookDataManager.writeToFile(bookList, FileName.BOOKS.getFileName());
                 }
             }
             return message.getMessageWhenReturnSuccess();

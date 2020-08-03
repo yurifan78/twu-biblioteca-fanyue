@@ -1,12 +1,12 @@
 package com.twu.Biblioteca;
 
-public enum File {
+public enum FileName {
     BOOKS("books.csv"),
     MOVIES("movies.csv");
 
     private final String fileName;
 
-    File(String fileName) {
+    FileName(String fileName) {
         this.fileName = fileName;
     }
 

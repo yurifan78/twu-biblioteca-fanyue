@@ -1,6 +1,8 @@
 package com.twu.Biblioteca;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -30,7 +32,7 @@ public class BibliotecaApp {
 
             } else if (number == 1) {
 
-                format(library.generateList(File.BOOKS.getFileName()));
+                format(library.generateList(FileName.BOOKS.getFileName()));
 
                 checkOutBook(library, message, customer);
                 TimeUnit.SECONDS.sleep(1);
@@ -38,7 +40,7 @@ public class BibliotecaApp {
 
             } else if (number == 2) {
 
-                format(library.generateList(File.MOVIES.getFileName()));
+                format(library.generateList(FileName.MOVIES.getFileName()));
                 checkOutMovie(library, message);
 
             } else if (number == 3) {

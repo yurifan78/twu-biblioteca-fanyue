@@ -102,4 +102,19 @@ public class LibraryTest {
                 + "\nAnother Country | James Baldwin | 2001"
                 + "\nMrs Dalloway | Virginia Woolf | 2004", bookList);
     }
+
+    @Test
+    public void shouldGeneratePersonalInfo() {
+        Library library = new Library();
+        Customer customer = new Customer("fanyue",
+                "yue.fan@thoughtworks.com",
+                "15200002670",
+                "000-2333",
+                "2333");
+        String personalInfo = library.personalInfo(customer);
+
+        assertEquals("name: fanyue"
+                + "\nemail: yue.fan@thoughtworks.com"
+                + "\nphone: 15200002670" , personalInfo);
+    }
 }

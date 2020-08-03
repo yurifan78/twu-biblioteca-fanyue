@@ -40,8 +40,7 @@ public class Customer {
         return password;
     }
 
-    @Override
-    public String toString() {
+    public String getPersonalInfo() {
         return "name: " +
                 getName() +
                 "\n" +

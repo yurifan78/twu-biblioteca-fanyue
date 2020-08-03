@@ -18,7 +18,7 @@ public class BibliotecaApp {
                 "2333");
 
         render(library.welcome());
-        // scanner does not hold username value til ps input;
+        // to fix: scanner does not hold username value til ps input;
         userAuthentication(customer, library);
 
         while (true) {
@@ -30,19 +30,27 @@ public class BibliotecaApp {
             if (number == 0) {
                 return;
             } else if (number == 1) {
+
                 render(library.generateList("books.csv"));
 
                 checkOutBook(library, message);
                 TimeUnit.SECONDS.sleep(1);
                 returnBook(library, message);
+
             } else if (number == 2) {
+
                 render(library.generateList("movies.csv"));
 
                 checkOutMovie(library, message);
 
+            } else if (number == 3) {
+
+                render(library.personalInfo(customer));
+
             } else {
                 out.println(message.getMessageWhenSelectInvalid());
             }
+            
             TimeUnit.SECONDS.sleep(1);
         }
 
@@ -82,6 +90,8 @@ public class BibliotecaApp {
                 + "List of Books (Please enter number 1)"
                 + "\n"
                 + "List of Movies (Please enter number 2)"
+                + "\n"
+                + "Personal Information (Please enter number 3)"
                 + "\n"
                 + "Quit (Please enter number 0)"
                 + "\n"

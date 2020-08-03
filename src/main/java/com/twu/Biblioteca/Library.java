@@ -132,5 +132,8 @@ public class Library {
         }
     }
 
+    protected String personalInfo (Customer customer) {
+        return customer.getPersonalInfo();
+    }
 }
 

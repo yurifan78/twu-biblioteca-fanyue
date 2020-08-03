@@ -10,6 +10,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class LibraryTest {
+
     Customer customer = new Customer("fanyue",
             "yue.fan@thoughtworks.com",
             "15200002670",
@@ -37,8 +38,6 @@ public class LibraryTest {
         Library library = new Library();
         String bookList = library.generateList("books.csv");
         String movieList = library.generateList("movies.csv");
-        // test generate movie list
-        System.out.println(movieList);
 
         assertEquals("Pride and Prejudice | Jane Austen | 2012"
                 + "\nNineteen Eighty-Four | George Orwell | 2004"
@@ -48,7 +47,7 @@ public class LibraryTest {
     }
 
     @Test
-    public void shouldSendMessageWhenCheckOut() throws IOException {
+    public void shouldSendMessageWhenCheckOutBook() throws IOException {
         Library library = new Library();
 
         String title = "Pride and Prejudice";
@@ -67,10 +66,6 @@ public class LibraryTest {
         String title = "Pride and Prejudice";
         library.checkOutBook(title, customer);
         String bookList = library.generateList("books.csv");
-        // test movie checkout
-        String movieTitle = "The Shawshank Redemption";
-        System.out.println(library.checkOutMovie(movieTitle));
-        System.out.println(library.generateList("movies.csv"));
 
         assertEquals("Nineteen Eighty-Four | George Orwell | 2004"
                 + "\nCrime and Punishment | Fyodor Dostoevsky | 2003"
@@ -122,9 +117,47 @@ public class LibraryTest {
     }
 
     @Test
-    public void shouldGeneratePersonalInfo() {
+    public void shouldGenerateMovieList() {
+        Library library = new Library();
+        String movieList = library.generateList("movies.csv");
+
+        assertEquals("The Shawshank Redemption | 1994 | Frank Darabont | 9\n" +
+                "The Godfather | 1972 | Francis Ford Coppola | 9\n" +
+                "Hamilton | 2020 | Thomas Kail | 9\n" +
+                "Andhadhun | 2018 | Sriram Raghavan | 8\n" +
+                "Green Book | 2018 | Peter Farrelly | 8", movieList);
+    }
+
+    @Test
+    public void shouldSendMessageWhenCheckOutMovie() throws IOException {
         Library library = new Library();
 
+        String name = "Hamilton";
+        String nameDoesNotExist = "Call Me by Your Name";
+        String messageWhenCheckOutMovieSuccess = library.checkOutMovie(name);
+        String messageWhenCheckOutMovieFail = library.checkOutMovie(nameDoesNotExist);
+
+        assertEquals("Thank you! Enjoy the movie", messageWhenCheckOutMovieSuccess);
+        assertEquals("Sorry, that movie is not available", messageWhenCheckOutMovieFail);
+    }
+
+    @Test
+    public void shouldGenerateMoviesInStockAfterCheckOut() throws IOException {
+        Library library = new Library();
+
+        String title = "Hamilton";
+        library.checkOutMovie(title);
+        String movieList = library.generateList("movies.csv");
+
+        assertEquals("The Shawshank Redemption | 1994 | Frank Darabont | 9\n" +
+                "The Godfather | 1972 | Francis Ford Coppola | 9\n" +
+                "Andhadhun | 2018 | Sriram Raghavan | 8\n" +
+                "Green Book | 2018 | Peter Farrelly | 8", movieList);
+    }
+
+    @Test
+    public void shouldGeneratePersonalInfo() {
+        Library library = new Library();
         String personalInfo = library.personalInfo(customer);
 
         assertEquals("name: fanyue"

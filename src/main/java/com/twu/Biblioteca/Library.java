@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 public class Library {
 
-    Collection<Item> items;
     Map<Customer, String> booksCheckedOutMap;
     Message message = new Message();
 

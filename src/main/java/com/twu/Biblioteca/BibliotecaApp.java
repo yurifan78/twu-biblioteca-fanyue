@@ -98,17 +98,6 @@ public class BibliotecaApp {
                 + "Please enter your number:");
     }
 
-    private static void returnBook(Library library, Message message) throws IOException {
-        String messageOfReturn;
-        do {
-            out.print("\n");
-            out.print("Please enter title of book to return:");
-            String titleOfReturned = new Scanner(System.in).nextLine();
-            messageOfReturn = library.returnBook(titleOfReturned);
-            out.println(messageOfReturn);
-        } while (messageOfReturn.equals(message.getMessageWhenReturnFail()));
-    }
-
     private static void checkOutMovie(Library library, Message message) throws IOException {
         String messageOfCheckout;
         do {
@@ -129,5 +118,16 @@ public class BibliotecaApp {
             messageOfCheckout = library.checkOutBook(title, customer);
             out.println(messageOfCheckout);
         } while (messageOfCheckout.equals(message.getMessageWhenCheckOutFail()));
+    }
+
+    private static void returnBook(Library library, Message message) throws IOException {
+        String messageOfReturn;
+        do {
+            out.print("\n");
+            out.print("Please enter title of book to return:");
+            String titleOfReturned = new Scanner(System.in).nextLine();
+            messageOfReturn = library.returnBook(titleOfReturned);
+            out.println(messageOfReturn);
+        } while (messageOfReturn.equals(message.getMessageWhenReturnFail()));
     }
 }

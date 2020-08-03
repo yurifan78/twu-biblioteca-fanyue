@@ -1,16 +1,11 @@
 package com.twu.Biblioteca;
 
-import com.twu.Biblioteca.Items.Book;
-
-import java.util.List;
-
 public class Customer {
     private final String name;
     private final String email;
     private final String phone;
     private final String id;
     private final String password;
-    List<Book> bookList;
 
     public Customer(String name, String email, String phone, String id, String password) {
         this.name = name;

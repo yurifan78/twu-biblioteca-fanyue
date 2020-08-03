@@ -30,7 +30,7 @@ public class Library {
         DataManager dataManager = new DataManager();
         List<Item> list = dataManager.getList(fileName);
         List<Item> itemsInStock = list.stream()
-                .filter(item -> item.getStatus().equals(Status.INSTOCK))
+                .filter(item -> isItemCheckOut(item, Status.INSTOCK))
                 .collect(Collectors.toList());
 
         if (fileName.equals("books.csv")) {
@@ -48,7 +48,7 @@ public class Library {
                     .append(" | ")
                     .append(movie.getYear())
                     .append(" | ")
-                    .append(movie.getAuthor())
+                    .append(movie.getCreator())
                     .append(" | ")
                     .append(movie.getRate())
                     .append("\n");
@@ -61,7 +61,7 @@ public class Library {
         for (Item book : bookList) {
             bookListString.append(book.getTitle())
                     .append(" | ")
-                    .append(book.getAuthor())
+                    .append(book.getCreator())
                     .append(" | ")
                     .append(book.getYear())
                     .append("\n");
@@ -77,7 +77,7 @@ public class Library {
                 findItemWithTitle(title, book))) {
             for (int i = 0; i < list.size(); i++) {
                 if (findItemWithTitle(title, list.get(i))) {
-                    String author = list.get(i).getAuthor();
+                    String author = list.get(i).getCreator();
                     String year = list.get(i).getYear();
 
                     list.set(i, new Book(title, author, year, Status.CHECKOUT));
@@ -97,9 +97,10 @@ public class Library {
 
         if (list.stream().anyMatch(movie ->
                 findItemWithTitle(name, movie))) {
+
             for (int i = 0; i < list.size(); i++) {
                 if (findItemWithTitle(name, list.get(i))) {
-                    String director = list.get(i).getAuthor();
+                    String director = list.get(i).getCreator();
                     String year = list.get(i).getYear();
                     int rate = list.get(i).getRate();
 
@@ -107,6 +108,7 @@ public class Library {
                     dataManager.writeToFile(list, "movies.csv");
                 }
             }
+
             return message.getMessageWhenCheckOutMovieSuccess();
         } else {
             return message.getMessageWhenCheckOutMovieFail();
@@ -121,9 +123,7 @@ public class Library {
         DataManager bookDataManager = new DataManager();
         List<Item> bookList = bookDataManager.getList("books.csv");
 
-        if (bookList.stream().anyMatch(book ->
-                findItemWithTitle(title, book)
-                && book.getStatus().equals(Status.CHECKOUT))) {
+        if (isItemExist(title, bookList)) {
             for (int i = 0; i < bookList.size(); i++) {
                 Item book = bookList.get(i);
                 if (findItemWithTitle(title, book)) {
@@ -135,6 +135,15 @@ public class Library {
         } else {
             return message.getMessageWhenReturnFail();
         }
+    }
+
+    private boolean isItemExist(String title, List<Item> list) {
+        return list.stream().anyMatch(book ->
+                findItemWithTitle(title, book) && isItemCheckOut(book, Status.CHECKOUT));
+    }
+
+    private boolean isItemCheckOut(Item item, Status checkout) {
+        return item.getStatus().equals(checkout);
     }
 
     protected String personalInfo (Customer customer) {

@@ -3,7 +3,7 @@ package com.twu.Biblioteca.Categories;
 public class Item {
     protected String title;
     protected String year;
-    protected String author;
+    protected String creator;
     protected Status status;
     protected int rate;
 
@@ -23,8 +23,8 @@ public class Item {
         return year;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getCreator() {
+        return creator;
     }
 
     public int getRate() {

@@ -15,7 +15,6 @@ public class Movie extends Item{
         this.status = status;
     }
 
-    @Override
     public String getTitle() {
         return name;
     }
@@ -24,8 +23,7 @@ public class Movie extends Item{
         return year;
     }
 
-    @Override
-    public String getAuthor() {
+    public String getCreator() {
         return director;
     }
 

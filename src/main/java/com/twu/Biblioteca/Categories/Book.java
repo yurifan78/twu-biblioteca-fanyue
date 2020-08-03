@@ -7,7 +7,6 @@ public class Book extends Item{
     private Status status;
 
     public Book(String title, String author, String year, Status status) {
-        super();
         this.title = title;
         this.author = author;
         this.year = year;
@@ -18,7 +17,7 @@ public class Book extends Item{
         return title;
     }
 
-    public String getAuthor() {
+    public String getCreator() {
         return author;
     }
 

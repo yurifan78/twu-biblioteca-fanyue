@@ -37,7 +37,6 @@ public class LibraryTest {
     public void shouldGenerateBookList() {
         Library library = new Library();
         String bookList = library.generateList("books.csv");
-        String movieList = library.generateList("movies.csv");
 
         assertEquals("Pride and Prejudice | Jane Austen | 2012"
                 + "\nNineteen Eighty-Four | George Orwell | 2004"

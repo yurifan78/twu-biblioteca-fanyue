@@ -50,7 +50,7 @@ public class BibliotecaApp {
             } else {
                 out.println(message.getMessageWhenSelectInvalid());
             }
-            
+
             TimeUnit.SECONDS.sleep(1);
         }
 
@@ -122,11 +122,12 @@ public class BibliotecaApp {
 
     private static void checkOutBook(Library library, Message message) throws IOException {
         String messageOfCheckout;
+        Customer customer = null;
         do {
             out.print("\n");
             out.print("Please enter title of book to checkout:");
             String title = new Scanner(System.in).nextLine();
-            messageOfCheckout = library.checkOutBook(title);
+            messageOfCheckout = library.checkOutBook(title, customer);
             out.println(messageOfCheckout);
         } while (messageOfCheckout.equals(message.getMessageWhenCheckOutFail()));
     }

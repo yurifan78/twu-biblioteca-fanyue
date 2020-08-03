@@ -12,7 +12,12 @@ import java.util.stream.Collectors;
 public class Library {
 
     Collection<Item> items;
+    Map<Customer, String> booksCheckedOutMap;
     Message message = new Message();
+
+    public Library() {
+        booksCheckedOutMap = new HashMap<>();
+    }
 
     protected boolean userAuthentication(Customer customer, String id, String password) {
         return id.equals(customer.getId()) && password.equals(customer.getPassword());
@@ -65,7 +70,7 @@ public class Library {
         return bookListString.toString().trim();
     }
 
-    protected String checkOutBook(String title) throws IOException {
+    protected String checkOutBook(String title, Customer customer) throws IOException {
         DataManager dataManager = new DataManager();
         List<Item> list = dataManager.getList("books.csv");
 
@@ -80,6 +85,7 @@ public class Library {
                     dataManager.writeToFile(list, "books.csv");
                 }
             }
+            booksCheckedOutMap.put(customer, title);
             return message.getMessageWhenCheckOutSuccess();
         } else {
             return message.getMessageWhenCheckOutFail();

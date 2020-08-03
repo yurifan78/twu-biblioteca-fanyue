@@ -3,11 +3,18 @@ package com.twu.Biblioteca;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class LibraryTest {
+    Customer customer = new Customer("fanyue",
+            "yue.fan@thoughtworks.com",
+            "15200002670",
+            "000-2333",
+            "2333");
 
     @Test
     public void shouldWelcomeCustomerWhenStartApp() {
@@ -21,11 +28,6 @@ public class LibraryTest {
     @Test
     public void shouldAuthenticateUser() {
         Library library = new Library();
-        Customer customer = new Customer("fanyue",
-                "yue.fan@thoughtworks.com",
-                "15200002670",
-                "000-2333",
-                "2333");
 
         assertTrue(library.userAuthentication(customer, customer.getId(), customer.getPassword()));
     }
@@ -48,10 +50,11 @@ public class LibraryTest {
     @Test
     public void shouldSendMessageWhenCheckOut() throws IOException {
         Library library = new Library();
+
         String title = "Pride and Prejudice";
         String titleDoesNotExist = "Java Fundamentals";
-        String messageWhenCheckOutSuccess = library.checkOutBook(title);
-        String messageWhenCheckOutFail = library.checkOutBook(titleDoesNotExist);
+        String messageWhenCheckOutSuccess = library.checkOutBook(title, customer);
+        String messageWhenCheckOutFail = library.checkOutBook(titleDoesNotExist, customer);
 
         assertEquals("Thank you! Enjoy the book", messageWhenCheckOutSuccess);
         assertEquals("Sorry, that book is not available", messageWhenCheckOutFail);
@@ -60,8 +63,9 @@ public class LibraryTest {
     @Test
     public void shouldGenerateBooksInStockAfterCheckOut() throws IOException {
         Library library = new Library();
+
         String title = "Pride and Prejudice";
-        library.checkOutBook(title);
+        library.checkOutBook(title, customer);
         String bookList = library.generateList("books.csv");
         // test movie checkout
         String movieTitle = "The Shawshank Redemption";
@@ -75,11 +79,24 @@ public class LibraryTest {
     }
 
     @Test
+    public void shouldKnowBooksCheckedOut() throws IOException {
+        Library library = new Library();
+        String title = "Pride and Prejudice";
+        String messageWhenCheckOutSuccess = library.checkOutBook(title, customer);
+        Map<Customer, String> map = new HashMap<>();
+        map.put(customer, title);
+
+        assertEquals("Thank you! Enjoy the book", messageWhenCheckOutSuccess);
+        assertEquals(map, library.booksCheckedOutMap);
+    }
+
+    @Test
     public void shouldSendMessageWhenReturnBook() throws IOException {
         Library library = new Library();
+
         String title = "Nineteen Eighty-Four";
         String titleDoesNotExist = "Java Fundamentals";
-        String checkoutMessage = library.checkOutBook(title);
+        String checkoutMessage = library.checkOutBook(title, customer);
         String returnMessageWhenSuccess = library.returnBook(title);
         String returnMessageWhenFail = library.returnBook(titleDoesNotExist);
 
@@ -91,8 +108,9 @@ public class LibraryTest {
     @Test
     public void shouldGenerateBooksInStockAfterReturn() throws IOException {
         Library library = new Library();
+
         String title = "Pride and Prejudice";
-        library.checkOutBook(title);
+        library.checkOutBook(title, customer);
         library.returnBook(title);
         String bookList = library.generateList("books.csv");
 
@@ -106,15 +124,12 @@ public class LibraryTest {
     @Test
     public void shouldGeneratePersonalInfo() {
         Library library = new Library();
-        Customer customer = new Customer("fanyue",
-                "yue.fan@thoughtworks.com",
-                "15200002670",
-                "000-2333",
-                "2333");
+
         String personalInfo = library.personalInfo(customer);
 
         assertEquals("name: fanyue"
                 + "\nemail: yue.fan@thoughtworks.com"
                 + "\nphone: 15200002670" , personalInfo);
     }
+
 }

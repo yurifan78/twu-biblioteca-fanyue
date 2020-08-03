@@ -1,5 +1,7 @@
 package com.twu.Biblioteca;
 
+import com.twu.Biblioteca.Categories.Book;
+import com.twu.Biblioteca.Categories.Status;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -77,11 +79,9 @@ public class LibraryTest {
         Library library = new Library();
         String title = "Pride and Prejudice";
         String messageWhenCheckOutSuccess = library.checkOutBook(title, customer);
-        Map<Customer, String> map = new HashMap<>();
-        map.put(customer, title);
 
         assertEquals("Thank you! Enjoy the book", messageWhenCheckOutSuccess);
-        assertEquals(map, library.booksCheckedOutMap);
+        assertEquals(title, library.booksCheckedOutMap.get(customer).getTitle());
     }
 
     @Test

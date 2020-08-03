@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class Library {
 
-    Map<Customer, String> booksCheckedOutMap;
+    Map<Customer, Book> booksCheckedOutMap;
     Message message = new Message();
 
     public Library() {
@@ -80,11 +80,12 @@ public class Library {
                     String author = list.get(i).getCreator();
                     String year = list.get(i).getYear();
 
-                    list.set(i, new Book(title, author, year, Status.CHECKOUT));
+                    Book book = new Book(title, author, year, Status.CHECKOUT);
+                    booksCheckedOutMap.put(customer, book);
+                    list.set(i, book);
                     dataManager.writeToFile(list, File.BOOKS.getFileName());
                 }
             }
-            booksCheckedOutMap.put(customer, title);
             return message.getMessageWhenCheckOutSuccess();
         } else {
             return message.getMessageWhenCheckOutFail();

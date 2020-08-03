@@ -22,12 +22,12 @@ public class BibliotecaApp {
 
         while (true) {
             Scanner scanner = new Scanner(System.in);
-
             menu();
             int number = scanner.nextInt();
 
             if (number == 0) {
                 return;
+
             } else if (number == 1) {
 
                 format(library.generateList(File.BOOKS.getFileName()));
@@ -50,20 +50,19 @@ public class BibliotecaApp {
                 out.println(message.getMessageWhenSelectInvalid());
 
             }
-
             TimeUnit.SECONDS.sleep(1);
         }
 
     }
 
     private static void userAuthentication(Customer customer, Library library) {
-        String username;
+        String id;
         String password;
         do {
             String[] identity = login();
-            username = identity[0];
+            id = identity[0];
             password = identity[1];
-        } while (!library.userAuthentication(customer, username, password));
+        } while (!library.userAuthentication(customer, id, password));
     }
 
     private static String[] login() {

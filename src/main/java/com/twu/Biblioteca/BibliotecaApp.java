@@ -1,6 +1,7 @@
 package com.twu.Biblioteca;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -10,10 +11,15 @@ public class BibliotecaApp {
     public static void main(String[] args) throws IOException, InterruptedException {
         Library library = new Library();
         Message message = new Message();
+        Customer customer = new Customer("fanyue",
+                "yue.fan@thoughtworks.com",
+                "15200002670",
+                "000-2333",
+                "2333");
 
         render(library.welcome());
         // scanner does not hold username value til ps input;
-        userAuthentication(library);
+        userAuthentication(customer, library);
 
         while (true) {
             Scanner scanner = new Scanner(System.in);
@@ -42,10 +48,9 @@ public class BibliotecaApp {
 
     }
 
-    private static void userAuthentication(Library library) {
+    private static void userAuthentication(Customer customer, Library library) {
         String username;
         String password;
-        Customer customer = null;
         do {
             String[] identity = login();
             username = identity[0];
@@ -55,15 +60,15 @@ public class BibliotecaApp {
 
     private static String[] login() {
         Scanner scanner = new Scanner(System.in);
-        out.print("\nLogin" + "\n" + "your name: ");
-        String username = scanner.nextLine();
+        out.print("\nLogin" + "\n" + "your id: ");
+        String id = scanner.nextLine();
         out.print("your password: ");
         String password = scanner.nextLine();
 
-        String[] identity = new String[2];
-        identity[0] = username;
-        identity[1] = password;
-        return identity;
+        String[] user = new String[2];
+        user[0] = id;
+        user[1] = password;
+        return user;
     }
 
     private static void render(String string) {

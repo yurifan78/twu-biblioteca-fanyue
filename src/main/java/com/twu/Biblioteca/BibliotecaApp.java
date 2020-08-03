@@ -1,7 +1,6 @@
 package com.twu.Biblioteca;
 
 import java.io.IOException;
-import java.util.Objects;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -17,7 +16,7 @@ public class BibliotecaApp {
                 "000-2333",
                 "2333");
 
-        render(library.welcome());
+        format(library.welcome());
         // to fix: scanner does not hold username value til ps input;
         userAuthentication(customer, library);
 
@@ -31,7 +30,7 @@ public class BibliotecaApp {
                 return;
             } else if (number == 1) {
 
-                render(library.generateList("books.csv"));
+                format(library.generateList("books.csv"));
 
                 checkOutBook(library, message, customer);
                 TimeUnit.SECONDS.sleep(1);
@@ -39,17 +38,17 @@ public class BibliotecaApp {
 
             } else if (number == 2) {
 
-                render(library.generateList("movies.csv"));
+                format(library.generateList("movies.csv"));
                 checkOutMovie(library, message);
 
             } else if (number == 3) {
 
-                render(library.personalInfo(customer));
+                format(library.personalInfo(customer));
 
             } else {
 
                 out.println(message.getMessageWhenSelectInvalid());
-                
+
             }
 
             TimeUnit.SECONDS.sleep(1);
@@ -80,7 +79,7 @@ public class BibliotecaApp {
         return user;
     }
 
-    private static void render(String string) {
+    private static void format(String string) {
         out.print("\n");
         out.println(string);
     }

@@ -14,8 +14,8 @@ public class Library {
     Collection<Item> items;
     Message message = new Message();
 
-    protected boolean identityCheck(String username, String password) {
-        return username.equals("yuri") && password.equals("2333");
+    protected boolean userAuthentication(Customer customer, String id, String password) {
+        return id.equals(customer.getId()) && password.equals(customer.getPassword());
     }
 
     protected String welcome() {

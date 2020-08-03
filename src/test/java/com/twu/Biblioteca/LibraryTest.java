@@ -3,10 +3,9 @@ package com.twu.Biblioteca;
 import org.junit.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class LibraryTest {
 
@@ -17,6 +16,18 @@ public class LibraryTest {
 
         assertEquals("Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!",
                 welcomeMessage);
+    }
+
+    @Test
+    public void shouldAuthenticateUser() {
+        Library library = new Library();
+        Customer customer = new Customer("fanyue",
+                "yue.fan@thoughtworks.com",
+                "15200002670",
+                "000-2333",
+                "2333");
+
+        assertTrue(library.userAuthentication(customer, customer.getId(), customer.getPassword()));
     }
 
     @Test

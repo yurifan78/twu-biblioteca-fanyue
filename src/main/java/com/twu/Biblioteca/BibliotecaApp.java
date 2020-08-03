@@ -13,7 +13,7 @@ public class BibliotecaApp {
 
         render(library.welcome());
         // scanner does not hold username value til ps input;
-        identityAuthentication(library);
+        userAuthentication(library);
 
         while (true) {
             Scanner scanner = new Scanner(System.in);
@@ -42,14 +42,15 @@ public class BibliotecaApp {
 
     }
 
-    private static void identityAuthentication(Library library) {
+    private static void userAuthentication(Library library) {
         String username;
         String password;
+        Customer customer = null;
         do {
             String[] identity = login();
             username = identity[0];
             password = identity[1];
-        } while (!library.identityCheck(username, password));
+        } while (!library.userAuthentication(customer, username, password));
     }
 
     private static String[] login() {

@@ -1,4 +1,4 @@
-package com.twu.Biblioteca.Items;
+package com.twu.Biblioteca.Categories;
 
 public class Movie extends Item{
     private String name;

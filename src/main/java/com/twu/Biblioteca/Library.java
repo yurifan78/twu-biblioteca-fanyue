@@ -1,9 +1,9 @@
 package com.twu.Biblioteca;
 
-import com.twu.Biblioteca.Items.Book;
-import com.twu.Biblioteca.Items.Item;
-import com.twu.Biblioteca.Items.Movie;
-import com.twu.Biblioteca.Items.Status;
+import com.twu.Biblioteca.Categories.Book;
+import com.twu.Biblioteca.Categories.Item;
+import com.twu.Biblioteca.Categories.Movie;
+import com.twu.Biblioteca.Categories.Status;
 
 import java.io.*;
 import java.util.*;

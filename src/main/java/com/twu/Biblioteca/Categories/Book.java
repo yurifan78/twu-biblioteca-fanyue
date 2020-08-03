@@ -1,4 +1,4 @@
-package com.twu.Biblioteca.Items;
+package com.twu.Biblioteca.Categories;
 
 public class Book extends Item{
     private String title;

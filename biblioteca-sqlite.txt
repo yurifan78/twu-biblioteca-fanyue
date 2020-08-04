@@ -1,0 +1,55 @@
+TODO Q1: Who checked out the book 'The Hobbit’?
+SELECT name FROM member WHERE id = (
+SELECT member_id FROM checkout_item WHERE book_id = (
+SELECT id FROM book WHERE title = 'The Hobbit'));
+Anand Beck
+
+TODO Q2: How many people have not checked out anything?
+SELECT ((
+SELECT COUNT (DISTINCT id) FROM member) - (
+SELECT COUNT (DISTINCT member_id) FROM checkout_item));
+37
+
+TODO Q3: What books and movies aren't checked out?
+SELECT title
+FROM book
+WHERE id
+NOT IN (SELECT DISTINCT book_id
+    FROM checkout_item
+    WHERE book_id IS NOT NULL);
+Fellowship of the Ring
+1984
+Tom Sawyer
+Catcher in the Rye
+To Kill a Mockingbird
+Domain Driven Design
+
+SELECT title
+FROM movie
+WHERE id
+NOT IN (SELECT DISTINCT movie_id
+    FROM checkout_item
+    WHERE movie_id IS NOT NULL);
+Thin Red Line
+Crouching Tiger, Hidden Dragon
+Lawrence of Arabia
+Office Space
+
+TODO Q4: Add the book 'The Pragmatic Programmer', and add yourself as a member. Check out 'The Pragmatic Programmer'.
+TODO Use your query from question 1 to verify that you have checked it out. Also, provide the SQL used to update the database.
+INSERT INTO book (id, title) VALUES (11, 'The Pragmatic Programmer');
+INSERT INTO member (id, name) VALUES (43, 'Yue Fan');
+INSERT INTO checkout_item (member_id, book_id) VALUES (43, 11);
+SELECT name FROM member WHERE id = (
+SELECT member_id FROM checkout_item WHERE book_id = (
+SELECT id FROM book WHERE title = 'The Pragmatic Programmer'));
+Yue Fan
+
+TODO Q5: Who has checked out more than 1 item? Tip: Research the GROUP BY syntax.
+SELECT COUNT(checkout_item.member_id), member.name
+FROM checkout_item, member
+WHERE member.id = checkout_item.member_id
+GROUP BY checkout_item.member_id
+HAVING COUNT(checkout_item.member_id) > 1;
+3|Anand Beck
+3|Frank Smith
